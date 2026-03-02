@@ -4,6 +4,14 @@ import { Link } from 'react-router-dom';
 const { Header, Content, Sider } = Layout;
 
 function MainLayout({ selectedKeys, children }) {
+  // Warning: [antd: Menu] `children` will be removed in next major version. Please use `items` instead.
+  // => Menu.Item 대신에 Menu 컴포넌트에 items 객체를 넘기는 것으로 변경
+  const items = [
+    {
+      label: <Link to="/list">설문조사 관리</Link>,
+      key: 'list',
+    },
+  ];
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider>
@@ -11,10 +19,15 @@ function MainLayout({ selectedKeys, children }) {
           className="logo"
           style={{ height: 32, margin: 16, background: 'rgba(255,255,255,.3)' }}
         />
-        <Menu theme="dark" mode="inline" selectedKeys={selectedKeys}>
-          <Menu.Item key="list">
+        <Menu
+          items={items}
+          theme="dark"
+          mode="inline"
+          selectedKeys={selectedKeys}
+        >
+          {/* <Menu.Item key="list">
             <Link to="/list">설문조사 관리</Link>
-          </Menu.Item>
+          </Menu.Item> */}
         </Menu>
       </Sider>
       <Layout>
