@@ -1,9 +1,16 @@
 import { Layout, Menu } from 'antd';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 const { Header, Content, Sider } = Layout;
 
+// const contentStyle = { padding: 45 };
+
 function MainLayout({ selectedKeys, children }) {
+  const contentStyle = useMemo(() => {
+    return { padding: 45 };
+  }, []);
+
   // Warning: [antd: Menu] `children` will be removed in next major version. Please use `items` instead.
   // => Menu.Item 대신에 Menu 컴포넌트에 items 객체를 넘기는 것으로 변경
   const items = [
@@ -32,7 +39,7 @@ function MainLayout({ selectedKeys, children }) {
       </Sider>
       <Layout>
         <Header />
-        <Content>{children}</Content>
+        <Content style={contentStyle}>{children}</Content>
       </Layout>
     </Layout>
   );
