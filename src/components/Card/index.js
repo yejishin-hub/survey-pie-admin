@@ -23,12 +23,12 @@ function Card({
           <Button type="text" onClick={onUpButtonClick} icon={<UpOutlined />} />
           <Button
             type="text"
-            onClick={onDownButtonClick}
+            onClick={onDeleteButtonClick}
             icon={<DeleteOutlined />}
           />
           <Button
             type="text"
-            onClick={onDeleteButtonClick}
+            onClick={onDownButtonClick}
             icon={<DownOutlined />}
           />
         </ButtonGroup>

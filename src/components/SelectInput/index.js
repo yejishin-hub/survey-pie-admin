@@ -2,7 +2,7 @@ import { Radio, Space } from 'antd';
 
 function SelectInput({ options }) {
   return (
-    <Space direction="vertical">
+    <Space orientation="vertical">
       {options.items.map((item) => (
         <Radio>{item}</Radio>
       ))}
