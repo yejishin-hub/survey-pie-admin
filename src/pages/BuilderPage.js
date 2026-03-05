@@ -1,4 +1,5 @@
 import { Col, Input, Row } from 'antd';
+import { produce } from 'immer';
 import { useState } from 'react';
 
 import OptionSection from '../components/OptionSection';
@@ -52,10 +53,73 @@ function BuilderPage() {
             placeholder="설문 제목을 입력해주세요."
             value={data.title}
             onChange={(e) => {
-              setData((state) => ({ ...state, title: e.target.value }));
+              // 1. 앞에서 배운 방법
+              // setData((state) => ({ ...state, title: e.target.value }));
+
+              // 2-1. immer js 라이브러리 사용
+              // const newData = produce(data, (draft) => {
+              //   draft.title = e.target.value;
+              // });
+              // setData(newData);
+
+              // 2-2. immer js 라이브러리 사용 => setData에 전달해주면 알아서 data 생성해서 진행
+              setData(
+                produce((draft) => {
+                  draft.title = e.target.value;
+                }),
+              );
             }}
           />
-          <PreviewSection questions={data.questions} />
+          <PreviewSection
+            questions={data.questions}
+            addQuestion={() => {
+              setData(
+                produce((draft) => {
+                  draft.questions.push({
+                    title: 'Untitled',
+                    desc: '',
+                    type: 'text',
+                    required: false,
+                    options: {
+                      max: 20,
+                      placeholder: '',
+                    },
+                  });
+                }),
+              );
+            }}
+            moveUpQuestion={(index) => {
+              if (index === 0) {
+                return;
+              }
+              setData(
+                produce((draft) => {
+                  const temp = draft.questions[index];
+                  draft.questions[index] = draft.questions[index - 1];
+                  draft.questions[index - 1] = temp;
+                }),
+              );
+            }}
+            moveDownQuestion={(index) => {
+              if (index === data.questions.length - 1) {
+                return;
+              }
+              setData(
+                produce((draft) => {
+                  const temp = draft.questions[index];
+                  draft.questions[index] = draft.questions[index + 1];
+                  draft.questions[index + 1] = temp;
+                }),
+              );
+            }}
+            deleteQuestion={(index) => {
+              setData(
+                produce((draft) => {
+                  draft.questions.splice(index, 1);
+                }),
+              );
+            }}
+          />
         </Col>
         <Col flex="350px">
           <OptionSection />
