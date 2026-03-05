@@ -3,8 +3,8 @@ import { Radio, Space } from 'antd';
 function SelectInput({ options }) {
   return (
     <Space orientation="vertical">
-      {options.items.map((item) => (
-        <Radio>{item}</Radio>
+      {options.items.map((item, index) => (
+        <Radio key={index}>{item}</Radio>
       ))}
     </Space>
   );
