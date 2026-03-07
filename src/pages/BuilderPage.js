@@ -13,8 +13,9 @@ import {
 } from '../stores/survey/surveySlice';
 
 function BuilderPage() {
-  const survey = useSelector((state) => state.survey);
-  console.log('survey', survey);
+  const survey = useSelector((state) => {
+    return state.survey;
+  });
   const dispatch = useDispatch();
 
   return (
@@ -25,6 +26,7 @@ function BuilderPage() {
             placeholder="설문 제목을 입력해주세요."
             value={survey.title}
             onChange={(e) => {
+              // 3. Redux
               dispatch(setTitle(e.target.value));
               // 1. 앞에서 배운 방법
               // setData((state) => ({ ...state, title: e.target.value }));
@@ -41,7 +43,6 @@ function BuilderPage() {
               //     draft.title = e.target.value;
               //   }),
               // );
-              // 3. Redux
             }}
           />
           <PreviewSection
