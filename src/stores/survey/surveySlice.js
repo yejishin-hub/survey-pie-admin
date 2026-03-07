@@ -53,16 +53,28 @@ export const surveySlice = createSlice({
       // [불변성] createSlice는 기본적으로 immur js의 라이브러리를 사용함
       state.title = action.payload;
     },
-    addQuestion: (state) => {
+    addQuestion: (state, action) => {
+      const type = action.payload;
+
+      let options = {};
+      if (type === 'text' || type === 'textarea') {
+        options = {
+          max: 20,
+          placeholder: '',
+        };
+      } else if (type === 'select') {
+        options = {
+          max: 1,
+          items: ['가', '나', '다'],
+        };
+      }
+
       state.questions.push({
         title: 'Untitled',
         desc: '',
-        type: 'text',
+        type,
         required: false,
-        options: {
-          max: 20,
-          placeholder: '',
-        },
+        options,
       });
     },
     moveUpQuestion: (state, action) => {
