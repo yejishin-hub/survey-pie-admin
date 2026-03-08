@@ -2,6 +2,7 @@ import { Col, Row } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 import BuilderTitleInput from '../components/BuilderTitleInput';
 import OptionSection from '../components/OptionSection';
@@ -38,8 +39,11 @@ function BuilderPage() {
           <OptionSection />
         </Col>
       </Row>
+      <FloatingButton />
     </MainLayout>
   );
 }
+
+const FloatingButton = styled.div``;
 
 export default BuilderPage;
