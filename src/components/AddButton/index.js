@@ -75,6 +75,7 @@ const IconButton = styled.button`
   outline: none;
   font-size: 2.5rem;
   cursor: pointer;
+  margin-top: 10px;
 `;
 
 export default AddButton;

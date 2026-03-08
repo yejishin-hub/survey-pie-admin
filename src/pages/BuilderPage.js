@@ -2,13 +2,15 @@ import { Col, Row } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 
 import BuilderTitleInput from '../components/BuilderTitleInput';
+import FloatingButton from '../components/FloatingButton';
 import OptionSection from '../components/OptionSection';
 import PreviewSection from '../components/PreviewSection';
 import MainLayout from '../layouts/MainLayout';
 import fetchSurvey from '../services/fetchSurvey';
+import { setSelectedQuestionId } from '../stores/selectedQuestionId/selectedQuestionIdSlice';
+import { setSurvey } from '../stores/survey/surveySlice';
 
 function BuilderPage() {
   const error = useSelector((state) => state.survey.error);
@@ -17,7 +19,17 @@ function BuilderPage() {
   const params = useParams();
 
   useEffect(() => {
-    dispatch(fetchSurvey(params.surveyId));
+    if (params.surveyId) {
+      dispatch(fetchSurvey(params.surveyId));
+    } else {
+      dispatch(
+        setSurvey({
+          title: '',
+          questions: [],
+        }),
+      );
+      dispatch(setSelectedQuestionId(null));
+    }
   }, [dispatch, params.surveyId]);
 
   if (error) {
@@ -43,7 +55,5 @@ function BuilderPage() {
     </MainLayout>
   );
 }
-
-const FloatingButton = styled.div``;
 
 export default BuilderPage;
